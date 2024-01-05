@@ -143,8 +143,7 @@ class ConnectivityWrapper {
   ///
   Future<bool> _checkWebConnection() async {
     var connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.mobile ||
-        connectivityResult == ConnectivityResult.wifi) {
+    if (connectivityResult != ConnectivityResult.none) {
       return true;
     }
     return false;
