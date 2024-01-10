@@ -122,7 +122,6 @@ class ConnectivityWrapper {
   Future<bool> get isConnected async {
     bool connected = await _checkWebConnection();
     if (kIsWeb) return connected;
-    if (!connected) return connected;
 
     List<Future<AddressCheckResult>> requests = [];
 
