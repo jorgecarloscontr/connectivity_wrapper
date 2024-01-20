@@ -130,7 +130,17 @@ class ConnectivityWrapper {
     }
     _lastTryResults = List.unmodifiable(await Future.wait(requests));
 
-    return _lastTryResults.map((result) => result.isSuccess).contains(true);
+    bool result =
+        _lastTryResults.map((result) => result.isSuccess).contains(true);
+
+    if (!result) {
+      try {
+        final google = await InternetAddress.lookup('google.com');
+        result = google.isNotEmpty && google[0].rawAddress.isNotEmpty;
+      } catch (e) {}
+    }
+
+    return result;
   }
 
   Future<ConnectivityStatus> get connectionStatus async {
